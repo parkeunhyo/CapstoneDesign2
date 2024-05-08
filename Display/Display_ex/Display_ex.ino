@@ -14,7 +14,7 @@ void setup() {
   Serial.begin(9600);
   if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
     Serial.println(F("SSD1306 allocation failed"));
-    for (;;); // 무한 루프
+    for (;;); // 무한루프
   }
   if (!rtc.begin()) {
     Serial.println("Couldn't find RTC");
