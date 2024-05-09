@@ -25,7 +25,7 @@ void setup()
   Serial.println("---------------");
 
  // myrtc.setDOW(WEDNESDAY);
-  myrtc.setTime(17, 30, 0);
+  myrtc.setTime(13, 25, 0);
   //myrtc.setDate(8, 5, 24);
 }
 

@@ -1,49 +1,42 @@
-#include <SoftwareSerial.h>
-SoftwareSerial gps(11,12);
-char c = ""; 
-String str = ""; 
-String targetStr = "GPGGA" ;
+#include <SoftwareSerial.h>                    // SoftwareSerial 헥사파일 선언
 
-void setup() {
-  // put your setup code here, to run once:
-  Serial.begin(9600);
-  gps.begin(9600);
+​
+
+SoftwareSerial GPS (13 , 12);                 // GPS 시리얼 통신 핀설정 (TX , RX)
+
+​
+
+void setup() 
+
+{
+
+  Serial.begin(9600);                                // 시리얼통신 설정 (보드레이트 9600)
+
+  GPS.begin(9600);                                  // GPS 시리얼통신 설정 (보드레이트 9600)
+
 }
 
-void loop() {
-  // put your main code here, to run repeatedly:
-  if(gps.available()){
-    c=gps.read(); 
-    if(c=='\n'){
-      if(targetStr.equals(str.substring(1,6))){
-        Serial.println(str);
-        int first = str.indexOf(",");
-        int two = str.indexOf(",",first+1);
-        int three = str.indexOf(",",two+1);
-        int four = str.indexOf(",",three+1);
-        int five = str.indexOf(",",four+1);
-        String Lat = str.substring(two+1,three);
-        String Long = str.substring(four+1,five);
+​
 
-        String Lat1 = Lat.substring(0,2);
-        String Lat2 = Lat.substring(2);
+void loop() 
 
-        String Long1 = Long.substring(0,3);
-        String Long2 = Long.substring(3);
+{
 
-        double LatF = Lat1.toDouble()+Lat2.toDouble()/60;
-        float LongF = Long1.toFloat()+Long2.toFloat()/60;
+  if(Serial.available())                               // Serial에 입력이 되면
 
-        Serial.print("Lat(위도) :");
-        Serial.println(LatF,15);
-        Serial.print("Long(경도) :");
-        Serial.println(LongF,15);
+  {
 
-      }
-    str = "";
-    }
-    else{
-      str+=c;
-    }
+    Serial.write(Serial.read());                   // Serial에 입력된 값을 시리얼 모니터에 출력
+
   }
+
+  if(GPS.available())                                 // GPS에 입력이 되면
+
+  {
+
+    Serial.write(GPS.read());                     // GPS에 입력된 값을 시리얼 모니터에 출력
+
+  }
+
 }
+[출처] 아두이노 NEO-6M GPS 모듈 사용 예제|작성자 도매키트 아두몰
